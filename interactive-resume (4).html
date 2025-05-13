@@ -1,0 +1,1707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naeema Mohammed Sageer | Resume</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+        
+        :root {
+            --pages-bg: #f5f5f7;
+            --window-bg: #ffffff;
+            --border: #d1d1d6;
+            --text: #1d1d1f;
+            --text-secondary: #86868b;
+            --primary: #0071e3;
+            --primary-glitch: #ff00ff;
+            --secondary-glitch: #00ffff;
+            --accent1: #5e5ce6;
+            --accent2: #ff375f;
+            --accent3: #30d158;
+            --accent4: #ffd60a;
+            --toolbar: rgba(246, 246, 248, 0.8);
+            --sidebar: #f5f5f7;
+            --window-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            --transition: all 0.25s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body {
+            background-color: var(--pages-bg);
+            color: var(--text);
+            line-height: 1.6;
+            height: 100vh;
+            margin: 0;
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: 
+                linear-gradient(45deg, rgba(0, 255, 255, 0.03) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(255, 0, 255, 0.03) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, rgba(0, 255, 255, 0.03) 75%),
+                linear-gradient(-45deg, transparent 75%, rgba(255, 0, 255, 0.03) 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.03),
+                rgba(0, 0, 0, 0.03) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        body::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                rgba(255, 0, 255, 0.05) 0%, 
+                rgba(0, 255, 255, 0.05) 50%, 
+                rgba(255, 255, 0, 0.05) 100%);
+            mix-blend-mode: color;
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        /* Main Pages window */
+        .pages-window {
+            width: 90vw;
+            height: 90vh;
+            background-color: var(--window-bg);
+            border-radius: 10px;
+            box-shadow: var(--window-shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border);
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Window title bar */
+        .title-bar {
+            height: 28px;
+            background-color: var(--toolbar);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            -webkit-app-region: drag;
+            user-select: none;
+            position: relative;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .window-controls {
+            display: flex;
+            gap: 8px;
+            z-index: 2;
+        }
+        
+        .control {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .control.close {
+            background-color: #ff5f57;
+            border: 0.5px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .control.minimize {
+            background-color: #febc2e;
+            border: 0.5px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .control.maximize {
+            background-color: #28c840;
+            border: 0.5px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .control:hover {
+            transform: scale(1.1);
+        }
+        
+        .control:hover::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .control.close:hover::before {
+            content: '×';
+            font-size: 10px;
+            color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .control.minimize:hover::before {
+            content: '-';
+            font-size: 10px;
+            color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .control.maximize:hover::before {
+            content: '+';
+            font-size: 10px;
+            color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .window-title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+        
+        /* Pages toolbar */
+        .pages-toolbar {
+            height: 50px;
+            background-color: var(--toolbar);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            gap: 16px;
+        }
+        
+        .toolbar-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .toolbar-button {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .toolbar-button:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+            color: var(--text);
+        }
+        
+        .toolbar-button svg {
+            width: 16px;
+            height: 16px;
+        }
+        
+        .toolbar-separator {
+            width: 1px;
+            height: 24px;
+            background-color: var(--border);
+            margin: 0 4px;
+        }
+        
+        .toolbar-dropdown {
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            font-size: 13px;
+            color: var(--text);
+            background-color: transparent;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .toolbar-dropdown:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        
+        .download-button {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            height: 30px;
+            padding: 0 12px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-left: auto;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .download-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.2), 
+                transparent);
+            transition: var(--transition);
+        }
+        
+        .download-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .download-button:hover::before {
+            left: 100%;
+            transition: 0.5s;
+        }
+        
+        .download-button:active {
+            transform: translateY(1px);
+        }
+        
+        /* Main content area */
+        .content-area {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+        
+        /* Resume content */
+        .document-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 40px 60px;
+            background-color: var(--window-bg);
+            position: relative;
+        }
+        
+        /* Glitch effects */
+        .glitch-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            opacity: 0.5;
+            mix-blend-mode: difference;
+            z-index: 1;
+        }
+        
+        .glitch-element {
+            position: absolute;
+            background-color: var(--primary-glitch);
+            opacity: 0.05;
+        }
+        
+        .glitch-line {
+            height: 1px;
+            width: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0.03;
+            animation: glitch-line 5s linear infinite;
+        }
+        
+        @keyframes glitch-line {
+            0% { transform: translateY(0vh); }
+            100% { transform: translateY(100vh); }
+        }
+        
+        .glitch-block {
+            width: 100px;
+            height: 20px;
+            opacity: 0.05;
+            animation: glitch-block 10s linear infinite;
+        }
+        
+        @keyframes glitch-block {
+            0% { 
+                transform: translate(-100px, 0); 
+                opacity: 0; 
+            }
+            10% { 
+                transform: translate(calc(100vw + 100px), 100px); 
+                opacity: 0.05; 
+            }
+            10.1% { 
+                transform: translate(-100px, 200px); 
+                opacity: 0; 
+            }
+            20% { 
+                transform: translate(calc(100vw + 100px), 300px); 
+                opacity: 0.05; 
+            }
+            20.1% { 
+                transform: translate(-100px, 400px); 
+                opacity: 0; 
+            }
+            30% { 
+                transform: translate(calc(100vw + 100px), 500px); 
+                opacity: 0.05; 
+            }
+            30.1% { 
+                transform: translate(-100px, 600px); 
+                opacity: 0; 
+            }
+            40% { 
+                transform: translate(calc(100vw + 100px), 700px); 
+                opacity: 0.05; 
+            }
+            40.1% { 
+                transform: translate(-100px, 800px); 
+                opacity: 0; 
+            }
+            50% { 
+                transform: translate(calc(100vw + 100px), 900px); 
+                opacity: 0.05; 
+            }
+            50.1% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+        
+        .scanlines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.03),
+                rgba(0, 0, 0, 0.03) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        .crt-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%, 
+                rgba(0, 0, 0, 0.02) 50%
+            ), linear-gradient(
+                90deg, 
+                rgba(255, 0, 0, 0.03), 
+                rgba(0, 255, 0, 0.02), 
+                rgba(0, 0, 255, 0.03)
+            );
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        /* Resume styling */
+        .resume-container {
+            max-width: 860px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 5;
+        }
+        
+        /* Header section */
+        .resume-header {
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .header-content {
+            position: relative;
+        }
+        
+        .name {
+            font-size: 38px;
+            font-weight: 800;
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .name::before {
+            content: attr(data-text);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            color: var(--primary-glitch);
+            transform: translate(-5px, 0);
+            opacity: 0.3;
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+        
+        .name::after {
+            content: attr(data-text);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            color: var(--secondary-glitch);
+            transform: translate(5px, 0);
+            opacity: 0.3;
+            animation: glitch-anim2 4s infinite linear alternate-reverse;
+        }
+        
+        @keyframes glitch-anim {
+            0% { transform: translate(-2px, 0); }
+            20% { transform: translate(2px, 0); }
+            40% { transform: translate(-2px, 0); }
+            60% { transform: translate(0px, 0); }
+            80% { transform: translate(2px, 0); }
+            100% { transform: translate(-2px, 0); }
+        }
+        
+        @keyframes glitch-anim2 {
+            0% { transform: translate(2px, 0); }
+            20% { transform: translate(-2px, 0); }
+            40% { transform: translate(2px, 0); }
+            60% { transform: translate(0px, 0); }
+            80% { transform: translate(-2px, 0); }
+            100% { transform: translate(2px, 0); }
+        }
+        
+        .title {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 12px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+            opacity: 0.3;
+        }
+        
+        .contact-info {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .contact-item:hover {
+            color: var(--primary);
+        }
+        
+        .contact-item svg {
+            width: 14px;
+            height: 14px;
+        }
+        
+        .summary {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--text);
+            max-width: 750px;
+            font-weight: 400;
+            position: relative;
+            border-left: 3px solid var(--primary-glitch);
+            padding-left: 15px;
+            margin-left: 2px;
+        }
+        
+        .summary::before {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 0;
+            width: 1px;
+            height: 100%;
+            background-color: var(--secondary-glitch);
+            opacity: 0.5;
+        }
+        
+        /* Section styling */
+        .resume-section {
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--text);
+            position: relative;
+            display: inline-block;
+            padding: 0 0 5px 0;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .section-title::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30%;
+            height: 3px;
+            background-color: var(--primary-glitch);
+            z-index: 1;
+            animation: glitch-line-section 4s infinite;
+        }
+        
+        @keyframes glitch-line-section {
+            0% { transform: translateX(-10%); opacity: 0.7; }
+            10% { transform: translateX(110%); opacity: 0; }
+            11% { transform: translateX(-10%); opacity: 0; }
+            50% { transform: translateX(-10%); opacity: 0; }
+            51% { transform: translateX(-10%); opacity: 0.7; }
+            60% { transform: translateX(110%); opacity: 0; }
+            61% { transform: translateX(-10%); opacity: 0; }
+            100% { transform: translateX(-10%); opacity: 0; }
+        }
+        
+        /* Experience items */
+        .experience-list {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .experience-item {
+            padding: 25px;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background-color: var(--primary);
+        }
+        
+        .experience-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .experience-item:nth-child(1)::before { background-color: var(--primary); }
+        .experience-item:nth-child(2)::before { background-color: var(--accent1); }
+        .experience-item:nth-child(3)::before { background-color: var(--accent2); }
+        .experience-item:nth-child(4)::before { background-color: var(--accent3); }
+        .experience-item:nth-child(5)::before { background-color: var(--accent4); }
+        
+        .experience-header {
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .experience-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 2px;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .experience-title::after {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background-color: currentColor;
+            border-radius: 50%;
+            margin-left: 4px;
+            opacity: 0.5;
+        }
+        
+        .experience-company {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 2px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .experience-item:nth-child(1) .experience-company { color: var(--primary); }
+        .experience-item:nth-child(2) .experience-company { color: var(--accent1); }
+        .experience-item:nth-child(3) .experience-company { color: var(--accent2); }
+        .experience-item:nth-child(4) .experience-company { color: var(--accent3); }
+        .experience-item:nth-child(5) .experience-company { color: var(--accent4); }
+        
+        .experience-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+        
+        .experience-description {
+            font-size: 14px;
+            color: var(--text);
+        }
+        
+        .experience-description ul {
+            padding-left: 20px;
+            margin-top: 6px;
+        }
+        
+        .experience-description li {
+            margin-bottom: 6px;
+            position: relative;
+        }
+        
+        .experience-description li::marker {
+            color: var(--primary);
+        }
+        
+        /* Skills section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        
+        .skill-group {
+            margin-bottom: 25px;
+        }
+        
+        .skill-group-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 2px;
+        }
+        
+        .skill-group-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary);
+            opacity: 0.3;
+        }
+        
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .skill-tag {
+            padding: 5px 10px;
+            background-color: rgba(0, 0, 0, 0.03);
+            border-radius: 4px;
+            font-size: 13px;
+            transition: var(--transition);
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .skill-tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.4), 
+                transparent);
+            transition: var(--transition);
+        }
+        
+        .skill-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .skill-tag:hover::before {
+            left: 100%;
+            transition: 0.5s;
+        }
+        
+        /* Education section */
+        .education-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .education-item {
+            padding: 20px;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .education-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background-color: var(--accent1);
+        }
+        
+        .education-item:nth-child(1)::before { background-color: var(--accent1); }
+        .education-item:nth-child(2)::before { background-color: var(--accent2); }
+        
+        .education-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .education-header {
+            margin-bottom: 12px;
+        }
+        
+        .education-school {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 2px;
+            color: var(--text);
+        }
+        
+        .education-degree {
+            font-size: 16px;
+            margin-bottom: 2px;
+            font-weight: 500;
+        }
+        
+        .education-item:nth-child(1) .education-degree { color: var(--accent1); }
+        .education-item:nth-child(2) .education-degree { color: var(--accent2); }
+        
+        .education-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+        
+        .education-description {
+            font-size: 14px;
+            color: var(--text);
+        }
+        
+        .education-description ul {
+            padding-left: 20px;
+            margin-top: 6px;
+        }
+        
+        .education-description li {
+            margin-bottom: 6px;
+            position: relative;
+        }
+        
+        .education-description li::marker {
+            color: var(--accent1);
+        }
+        
+        /* Recognition section */
+        .recognition-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .recognition-item {
+            padding: 20px;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            position: relative;
+            height: 100%;
+        }
+        
+        .recognition-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--accent3);
+        }
+        
+        .recognition-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .recognition-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+        
+        .recognition-org {
+            font-size: 14px;
+            color: var(--accent3);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        
+        .recognition-period {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+        
+        .recognition-description {
+            font-size: 13px;
+            color: var(--text);
+            line-height: 1.5;
+        }
+        
+        /* Languages section */
+        .languages-section {
+            margin-top: 30px;
+        }
+        
+        .languages-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+        
+        .languages-list {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .language-item {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .language-name {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 4px;
+            color: var(--text);
+        }
+        
+        .language-level {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+        
+        .language-progress {
+            width: 100px;
+            height: 4px;
+            background-color: rgba(0, 0, 0, 0.05);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+        
+        /* Extracurriculars section */
+        .extracurriculars-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        
+        .extracurricular-item {
+            padding: 15px;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .extracurricular-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background-color: var(--accent4);
+        }
+        
+        .extracurricular-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .extracurricular-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 2px;
+            color: var(--text);
+        }
+        
+        .extracurricular-org {
+            font-size: 14px;
+            color: var(--accent4);
+            margin-bottom: 2px;
+            font-weight: 500;
+        }
+        
+        .extracurricular-period {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+        
+        .extracurricular-description {
+            font-size: 13px;
+            color: var(--text);
+        }
+        
+        .extracurricular-description ul {
+            padding-left: 20px;
+            margin-top: 6px;
+        }
+        
+        .extracurricular-description li {
+            margin-bottom: 6px;
+            position: relative;
+        }
+        
+        /* Media queries */
+        @media (max-width: 900px) {
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .recognition-list,
+            .extracurriculars-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .document-content {
+                padding: 30px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .pages-window {
+                width: 100%;
+                height: 100%;
+                border-radius: 0;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .document-content {
+                padding: 20px;
+            }
+            
+            .name {
+                font-size: 30px;
+            }
+            
+            .title {
+                font-size: 18px;
+            }
+            
+            .pages-toolbar {
+                height: auto;
+                padding: 10px;
+                flex-wrap: wrap;
+            }
+            
+            .toolbar-separator,
+            .toolbar-group:nth-child(3),
+            .toolbar-group:nth-child(4) {
+                display: none;
+            }
+            
+            .download-button {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Pages window -->
+    <div class="pages-window">
+        <!-- Window title bar -->
+        <div class="title-bar">
+            <div class="window-controls">
+                <div class="control close"></div>
+                <div class="control minimize"></div>
+                <div class="control maximize"></div>
+            </div>
+            <div class="window-title">Naeema Mohammed Sageer - Resume.pages</div>
+        </div>
+        
+        <!-- Pages toolbar -->
+        <div class="pages-toolbar">
+            <div class="toolbar-group">
+                <div class="toolbar-button">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </div>
+                <div class="toolbar-button">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="toolbar-separator"></div>
+            
+            <div class="toolbar-group">
+                <div class="toolbar-button">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
+                </div>
+                <div class="toolbar-button">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="toolbar-separator"></div>
+            
+            <div class="toolbar-group">
+                <div class="toolbar-dropdown">
+                    Body
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 4px;">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="toolbar-group">
+                <div class="toolbar-button">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="8" y1="6" x2="21" y2="6"></line>
+                        <line x1="8" y1="12" x2="21" y2="12"></line>
+                        <line x1="8" y1="18" x2="21" y2="18"></line>
+                        <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                        <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                        <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                    </svg>
+                </div>
+                <div class="toolbar-button">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="21" y1="10" x2="3" y2="10"></line>
+                        <line x1="21" y1="6" x2="3" y2="6"></line>
+                        <line x1="21" y1="14" x2="3" y2="14"></line>
+                        <line x1="21" y1="18" x2="3" y2="18"></line>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="download-button">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Download PDF
+            </div>
+        </div>
+        
+        <!-- Main content area -->
+        <div class="content-area">
+            <!-- Document content -->
+            <div class="document-content">
+                <!-- Glitch effects -->
+                <div class="glitch-container">
+                    <div class="glitch-element glitch-line"></div>
+                    <div class="glitch-element glitch-block"></div>
+                    <div class="scanlines"></div>
+                    <div class="crt-effect"></div>
+                </div>
+                
+                <!-- Resume content -->
+                <div class="resume-container">
+                    <!-- Header section -->
+                    <div class="resume-header">
+                        <div class="header-content">
+                            <h1 class="name" data-text="Naeema Mohammed Sageer">Naeema Mohammed Sageer</h1>
+                            <h2 class="title">Experience Designer</h2>
+                            
+                            <div class="contact-info">
+                                <a href="http://designexperiments.cargo.site" class="contact-item" target="_blank">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                                    </svg>
+                                    designexperiments.cargo.site
+                                </a>
+                                <a href="https://linkedin.com/in/naeemams" class="contact-item" target="_blank">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                        <rect x="2" y="9" width="4" height="12"></rect>
+                                        <circle cx="4" cy="4" r="2"></circle>
+                                    </svg>
+                                    linkedin.com/in/naeemams
+                                </a>
+                                <a href="mailto:naeema.sageer@newschool.edu" class="contact-item">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                        <polyline points="22,6 12,13 2,6"></polyline>
+                                    </svg>
+                                    naeema.sageer@newschool.edu
+                                </a>
+                            </div>
+                            
+                            <p class="summary">
+                                Designer with a philosophy background specializing in bridging human needs with brand narratives. From exhibition spaces that spark meaningful visitor engagement to digital products that make emerging tech accessible, I bring strategic thinking and creative execution to every project. Comfortable moving between design critiques and technical discussions - though I'll save the philosophical debates for after the client meetings.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Experience section -->
+                    <div class="resume-section">
+                        <h2 class="section-title">Experience</h2>
+                        <div class="experience-list">
+                            <div class="experience-item">
+                                <div class="experience-header">
+                                    <h3 class="experience-title">Creative Technologist</h3>
+                                    <p class="experience-company">STAYJUSTINTIME.COM</p>
+                                    <div class="experience-meta">
+                                        <span>Remote - Boston, MA</span>
+                                        <span>August 2024 – Present</span>
+                                    </div>
+                                </div>
+                                <div class="experience-description">
+                                    <ul>
+                                        <li>Led user research and creative strategy through 12 stakeholder interviews across 6 companies (2 startups, 2 small businesses, and 2 mid-sized companies)</li>
+                                        <li>Created and implemented a design system on Figma with 15 reusable components, ensuring brand consistency across mobile, web, and tablet platforms</li>
+                                        <li>Singlehandedly leading UX and front-end development for MVP website via HTML/CSS and React.js, implementing prototype into a functional and accessible landing page (maintaining Web Content Accessibility Guidelines (WCAG) 2.2 standards) while preserving creative vision</li>
+                                        <li>Implementing a responsive dashboard interface using React.js and data visualization libraries, while concurrently designing an AI-driven analytics feature that translates complex trend data into actionable business recommendations</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="experience-item">
+                                <div class="experience-header">
+                                    <h3 class="experience-title">Exhibit Designer</h3>
+                                    <p class="experience-company">Stonewall National Monument Visitor Center</p>
+                                    <div class="experience-meta">
+                                        <span>New York, NY</span>
+                                        <span>January – June 2024</span>
+                                    </div>
+                                </div>
+                                <div class="experience-description">
+                                    <ul>
+                                        <li>Part of a five-person Parsons School of Design team chosen to develop an exhibit for the SNMVC in collaboration with Pride Live, serving 1.58M annual visitors; exhibit became the most popular attraction</li>
+                                        <li>Co-curated and co-designed the layout for a 100+ poster exhibition wall, including creating original posters via InDesign</li>
+                                        <li>Co-led lighting design and contributed to visual design and copywriting for 15+ print materials, including journal covers and flyers designed with a 48-hour turnaround for engagement sessions</li>
+                                        <li>Interpreted the legacy of the Stonewall Riots through research, outreach, and facilitation of three public engagement sessions</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="experience-item">
+                                <div class="experience-header">
+                                    <h3 class="experience-title">Product Design Intern</h3>
+                                    <p class="experience-company">STAYJUSTINTIME.COM</p>
+                                    <div class="experience-meta">
+                                        <span>Remote - Boston, MA</span>
+                                        <span>June 2023 – February 2024</span>
+                                    </div>
+                                </div>
+                                <div class="experience-description">
+                                    <ul>
+                                        <li>Developed comprehensive brand identity systems for two products, designing detailed guidelines for typography, spacing, and colors, and delivering the final brand books using InDesign</li>
+                                        <li>Crafted animated NFT profile pictures with unique augmented reality capabilities via After Effects and Meta Spark AR, collaborating directly with co-founders</li>
+                                        <li>Created 4+ dashboard designs, prototypes, and mockups while working with development teams</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="experience-item">
+                                <div class="experience-header">
+                                    <h3 class="experience-title">Social Media Student Assistant</h3>
+                                    <p class="experience-company">The New School</p>
+                                    <div class="experience-meta">
+                                        <span>New York, NY</span>
+                                        <span>April – December 2023</span>
+                                    </div>
+                                </div>
+                                <div class="experience-description">
+                                    <ul>
+                                        <li>Created engaging multimedia content for a substantial audience (Instagram: 93.3K followers, YouTube: 194K subscribers)</li>
+                                        <li>Produced bi-weekly content packages using Adobe Creative Suite (1 story set, 2 reels, and 1 long-form video profile), achieving 500+ views per platform through strategic storytelling</li>
+                                        <li>Developed content strategies focusing on niche student interests, increasing engagement metrics</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="experience-item">
+                                <div class="experience-header">
+                                    <h3 class="experience-title">Video Intern</h3>
+                                    <p class="experience-company">The Kollection</p>
+                                    <div class="experience-meta">
+                                        <span>Remote - Los Angeles, CA</span>
+                                        <span>June – August 2021</span>
+                                    </div>
+                                </div>
+                                <div class="experience-description">
+                                    <ul>
+                                        <li>Collaborated with Creative Director to produce a 2-minute promotional video for a live music event, adapted for YouTube, Instagram, and TikTok, contributing to sold-out event attendance</li>
+                                        <li>Created motion graphics using After Effects for branding elements within the video</li>
+                                        <li>Delivered creative assets within 72-hour deadlines while maintaining high production standards</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Skills section -->
+                    <div class="resume-section">
+                        <h2 class="section-title">Skills</h2>
+                        <div class="skills-container">
+                            <div class="skills-column">
+                                <div class="skill-group">
+                                    <h3 class="skill-group-title">Visual & Brand Design</h3>
+                                    <div class="skill-list">
+                                        <span class="skill-tag">Brand Identity</span>
+                                        <span class="skill-tag">Typography</span>
+                                        <span class="skill-tag">Layout</span>
+                                        <span class="skill-tag">Digital & Print Collateral</span>
+                                        <span class="skill-tag">Marketing Materials</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="skill-group">
+                                    <h3 class="skill-group-title">UX & Interactive Design</h3>
+                                    <div class="skill-list">
+                                        <span class="skill-tag">Wireframing</span>
+                                        <span class="skill-tag">Prototyping</span>
+                                        <span class="skill-tag">Web Animation</span>
+                                        <span class="skill-tag">Data Visualization</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="skill-group">
+                                    <h3 class="skill-group-title">Motion & Video</h3>
+                                    <div class="skill-list">
+                                        <span class="skill-tag">Motion Graphics</span>
+                                        <span class="skill-tag">2D Animation</span>
+                                        <span class="skill-tag">Storyboarding</span>
+                                        <span class="skill-tag">Video Editing & Post-Production</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="skills-column">
+                                <div class="skill-group">
+                                    <h3 class="skill-group-title">Design Tools</h3>
+                                    <div class="skill-list">
+                                        <span class="skill-tag">Adobe Photoshop</span>
+                                        <span class="skill-tag">Adobe Illustrator</span>
+                                        <span class="skill-tag">Adobe InDesign</span>
+                                        <span class="skill-tag">Figma</span>
+                                        <span class="skill-tag">Procreate</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="skill-group">
+                                    <h3 class="skill-group-title">Animation & Video Tools</h3>
+                                    <div class="skill-list">
+                                        <span class="skill-tag">Adobe Animate</span>
+                                        <span class="skill-tag">Toon Boom Harmony</span>
+                                        <span class="skill-tag">After Effects</span>
+                                        <span class="skill-tag">Premiere Pro</span>
+                                        <span class="skill-tag">DaVinci Resolve</span>
+                                        <span class="skill-tag">Lightroom</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="skill-group">
+                                    <h3 class="skill-group-title">3D & XR / Development</h3>
+                                    <div class="skill-list">
+                                        <span class="skill-tag">Cinema 4D</span>
+                                        <span class="skill-tag">Blender</span>
+                                        <span class="skill-tag">Unity (C#)</span>
+                                        <span class="skill-tag">Spark AR</span>
+                                        <span class="skill-tag">TikTok Effect House</span>
+                                        <span class="skill-tag">HTML</span>
+                                        <span class="skill-tag">CSS</span>
+                                        <span class="skill-tag">JavaScript</span>
+                                        <span class="skill-tag">React.js</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="languages-section">
+                                    <h3 class="languages-title">Languages</h3>
+                                    <div class="languages-list">
+                                        <div class="language-item">
+                                            <h4 class="language-name">English</h4>
+                                            <p class="language-level">Native</p>
+                                            <div class="language-progress">
+                                                <div class="progress-bar" style="width: 100%"></div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="language-item">
+                                            <h4 class="language-name">Malayalam</h4>
+                                            <p class="language-level">Native</p>
+                                            <div class="language-progress">
+                                                <div class="progress-bar" style="width: 100%"></div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="language-item">
+                                            <h4 class="language-name">Hindi</h4>
+                                            <p class="language-level">Professional</p>
+                                            <div class="language-progress">
+                                                <div class="progress-bar" style="width: 75%"></div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="language-item">
+                                            <h4 class="language-name">French</h4>
+                                            <p class="language-level">Limited</p>
+                                            <div class="language-progress">
+                                                <div class="progress-bar" style="width: 40%"></div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="language-item">
+                                            <h4 class="language-name">Arabic</h4>
+                                            <p class="language-level">Elementary</p>
+                                            <div class="language-progress">
+                                                <div class="progress-bar" style="width: 25%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Education section -->
+                    <div class="resume-section">
+                        <h2 class="section-title">Education</h2>
+                        <div class="education-list">
+                            <div class="education-item">
+                                <div class="education-header">
+                                    <h3 class="education-school">Parsons School of Design</h3>
+                                    <p class="education-degree">MFA Design and Technology</p>
+                                    <div class="education-meta">
+                                        <span>New York, NY</span>
+                                        <span>May 2024</span>
+                                    </div>
+                                </div>
+                                <div class="education-description">
+                                    <ul>
+                                        <li>Merit scholarship covering 75% of annual tuition</li>
+                                        <li>Relevant coursework: Visual Design Principles, Advanced UX Design, 3D Modeling and Animation, Game Design and Development</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="education-item">
+                                <div class="education-header">
+                                    <h3 class="education-school">New York University Abu Dhabi</h3>
+                                    <p class="education-degree">BA Film and New Media, Philosophy; Minor in Interactive Media</p>
+                                    <div class="education-meta">
+                                        <span>Abu Dhabi, UAE</span>
+                                        <span>May 2022</span>
+                                    </div>
+                                </div>
+                                <div class="education-description">
+                                    <ul>
+                                        <li>Merit-based full-tuition scholarship recipient</li>
+                                        <li>Relevant coursework: Web Development, 2D Animation, Video Production, Post-Production</li>
+                                        <li>International study experiences in Oman, Italy, and New York</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recognition section -->
+                    <div class="resume-section">
+                        <h2 class="section-title">Recognition</h2>
+                        <div class="recognition-list">
+                            <div class="recognition-item">
+                                <h3 class="recognition-title">TEA INSPIRE & IAAPA Expo Talent Programs</h3>
+                                <p class="recognition-org">Big Break Foundation</p>
+                                <p class="recognition-period">November 2023, March 2024</p>
+                                <p class="recognition-description">Chosen for competitive industry programs offering mentorship, funding, and networking opportunities with global leaders in experience design and themed entertainment. Attended the TEA INSPIRE conference, THEA Awards, and IAAPA Expo, gaining exposure to cutting-edge trends and technologies in experience design.</p>
+                            </div>
+                            
+                            <div class="recognition-item">
+                                <h3 class="recognition-title">Reality Hack Semi-Finalist</h3>
+                                <p class="recognition-org">MIT Reality Hack</p>
+                                <p class="recognition-period">January 2023</p>
+                                <p class="recognition-description">Developed an AR application for collaborative filmmaking and accessible visual effects, contributing to the democratization of visual effects for social media platforms.</p>
+                            </div>
+                            
+                            <div class="recognition-item">
+                                <h3 class="recognition-title">Quantum Design Jam Finalist</h3>
+                                <p class="recognition-org">IBM</p>
+                                <p class="recognition-period">October 2022</p>
+                                <p class="recognition-description">Created an interactive film experience utilizing quantum computing for dynamic content generation, providing a unique experience with each viewing.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Extracurriculars section -->
+                    <div class="resume-section">
+                        <h2 class="section-title">Extracurriculars & Volunteering</h2>
+                        <div class="extracurriculars-list">
+                            <div class="extracurricular-item">
+                                <div class="extracurricular-header">
+                                    <h3 class="extracurricular-title">Illustrator</h3>
+                                    <p class="extracurricular-org">The Gazelle, NYU Abu Dhabi</p>
+                                    <p class="extracurricular-period">Feb 2022 - May 2022</p>
+                                </div>
+                                <div class="extracurricular-description">
+                                    <ul>
+                                        <li>Created editorial illustrations and GIFs for a weekly student publication</li>
+                                        <li>Collaborated with writers to translate story concepts into visual narratives within a 3-hour turnaround</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="extracurricular-item">
+                                <div class="extracurricular-header">
+                                    <h3 class="extracurricular-title">Public Relations Committee Member</h3>
+                                    <p class="extracurricular-org">Student Government, NYU Abu Dhabi</p>
+                                    <p class="extracurricular-period">Sep 2020 - Dec 2020</p>
+                                </div>
+                                <div class="extracurricular-description">
+                                    <ul>
+                                        <li>Designed social media graphics, including infographics and carousel posts</li>
+                                        <li>Enhanced communication between the student body and government through visual content</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="extracurricular-item">
+                                <div class="extracurricular-header">
+                                    <h3 class="extracurricular-title">Volunteer Reporter</h3>
+                                    <p class="extracurricular-org">World Experience Organization Summit</p>
+                                    <p class="extracurricular-period">June 2024</p>
+                                </div>
+                                <div class="extracurricular-description">
+                                    <p>Documented and reported on events and discussions at an experience design summit.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="extracurricular-item">
+                                <div class="extracurricular-header">
+                                    <h3 class="extracurricular-title">Registration Desk Volunteer</h3>
+                                    <p class="extracurricular-org">Games for Change Festival</p>
+                                    <p class="extracurricular-period">July 2023</p>
+                                </div>
+                                <div class="extracurricular-description">
+                                    <p>Assisted with event registration, providing a smooth experience for attendees.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Add animation to progress bars
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initially set all progress bars to zero width
+            document.querySelectorAll('.progress-bar').forEach(bar => {
+                const finalWidth = bar.style.width;
+                bar.style.width = '0';
+                
+                // Then animate them to their final width
+                setTimeout(() => {
+                    bar.style.transition = 'width 1.5s cubic-bezier(0.1, 0.8, 0.2, 1)';
+                    bar.style.width = finalWidth;
+                }, 500);
+            });
+            
+            // Create glitch line elements
+            const glitchContainer = document.querySelector('.glitch-container');
+            for (let i = 0; i < 5; i++) {
+                const glitchLine = document.createElement('div');
+                glitchLine.className = 'glitch-element glitch-line';
+                glitchLine.style.top = `${Math.random() * 100}%`;
+                glitchLine.style.animationDelay = `${Math.random() * 5}s`;
+                glitchContainer.appendChild(glitchLine);
+            }
+            
+            // Create glitch block elements
+            for (let i = 0; i < 3; i++) {
+                const glitchBlock = document.createElement('div');
+                glitchBlock.className = 'glitch-element glitch-block';
+                glitchBlock.style.top = `${Math.random() * 100}%`;
+                glitchBlock.style.left = `${Math.random() * 100}%`;
+                glitchBlock.style.width = `${50 + Math.random() * 100}px`;
+                glitchBlock.style.height = `${10 + Math.random() * 20}px`;
+                glitchBlock.style.animationDelay = `${Math.random() * 10}s`;
+                glitchContainer.appendChild(glitchBlock);
+            }
+        });
+        
+        // Window control interactions
+        document.querySelector('.control.close').addEventListener('click', function() {
+            const app = document.querySelector('.pages-window');
+            app.style.transform = 'scale(0.95)';
+            app.style.opacity = '0';
+            setTimeout(() => {
+                app.style.display = 'none';
+            }, 300);
+        });
+        
+        document.querySelector('.control.minimize').addEventListener('click', function() {
+            const app = document.querySelector('.pages-window');
+            app.style.transform = 'scale(0.95) translateY(20px)';
+            app.style.opacity = '0';
+            setTimeout(() => {
+                app.style.display = 'none';
+            }, 300);
+        });
+        
+        // Download button action
+        document.querySelector('.download-button').addEventListener('click', function() {
+            alert('Resume PDF download started! (This would download the actual PDF in a real implementation)');
+        });
+        
+        // Random glitch effect on skill tags
+        document.querySelectorAll('.skill-tag').forEach(tag => {
+            tag.addEventListener('mouseover', function() {
+                // Random glitch effect
+                const glitchChance = Math.random();
+                if (glitchChance > 0.7) {
+                    const originalText = this.textContent;
+                    const glitchText = originalText.split('').map(char => {
+                        return Math.random() > 0.8 ? 
+                            String.fromCharCode(Math.floor(Math.random() * 26) + 97) : 
+                            char;
+                    }).join('');
+                    
+                    this.textContent = glitchText;
+                    
+                    setTimeout(() => {
+                        this.textContent = originalText;
+                    }, 200);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
