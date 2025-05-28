@@ -312,20 +312,81 @@
         .name {
             font-size: 38px;
             font-weight: 800;
-            margin-bottom: 8px;
+            margin-bottom: 20px;
             letter-spacing: -0.5px;
             color: var(--text);
             position: relative;
             display: inline-block;
+            background: linear-gradient(135deg, var(--text) 0%, var(--primary) 50%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { 
+                background-position: 0% 0%; 
+            }
+            50% { 
+                background-position: 100% 100%; 
+            }
+        }
+        
+        .name::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+            animation: underlineExpand 2s ease-out 0.5s forwards;
+        }
+        
+        @keyframes underlineExpand {
+            to {
+                width: 100%;
+            }
         }
         
         .title {
             font-size: 22px;
             font-weight: 600;
             color: var(--primary);
+            margin-top: 8px;
             margin-bottom: 16px;
             position: relative;
             display: inline-block;
+            background: linear-gradient(45deg, var(--primary), var(--accent), var(--primary));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientFlow 4s ease-in-out infinite;
+            transform: translateY(10px);
+            animation: titleSlideIn 1s ease-out 0.8s forwards, gradientFlow 4s ease-in-out infinite 1.5s;
+        }
+        
+        @keyframes gradientFlow {
+            0%, 100% { 
+                background-position: 0% 50%; 
+            }
+            50% { 
+                background-position: 100% 50%; 
+            }
+        }
+        
+        @keyframes titleSlideIn {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .title {
+            opacity: 0;
         }
         
         .contact-info {
